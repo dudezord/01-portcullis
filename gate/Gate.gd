@@ -1,5 +1,7 @@
 extends Node2D
 
+export(float, 0, 100, 0.1) var health = 100.0
+
 enum Status {
 	Opened,
 	Opening,

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://mobs/Spawner.gd" type="Script" id=1]
 [ext_resource path="res://mobs/enemy_soldier/EnemySoldier.tscn" type="PackedScene" id=2]
@@ -9,6 +9,32 @@
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 10, 243.571 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 1.0
+expand_margin_right = 1.0
+expand_margin_top = 1.0
+expand_margin_bottom = 1.0
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.333333, 0.333333, 0.333333, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.266667, 0.266667, 0.266667, 1 )
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+expand_margin_left = 4.0
+expand_margin_right = 4.0
+expand_margin_top = 4.0
+expand_margin_bottom = 4.0
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 5 )
@@ -28,6 +54,7 @@ color = Color( 0.0862745, 0.65098, 0.160784, 1 )
 position = Vector2( 508, 423 )
 
 [node name="Gate" parent="GateHolder" instance=ExtResource( 4 )]
+health = 65.0
 
 [node name="Despawner" type="Node2D" parent="."]
 position = Vector2( 753, 240 )
@@ -51,6 +78,19 @@ villager_scene = ExtResource( 3 )
 [node name="Timer" type="Timer" parent="Spawner"]
 wait_time = 3.0
 autostart = true
+
+[node name="GateHealthBar" type="ProgressBar" parent="."]
+margin_left = 412.0
+margin_top = 17.0
+margin_right = 603.5
+margin_bottom = 27.0
+grow_horizontal = 2
+grow_vertical = 2
+custom_styles/fg = SubResource( 2 )
+custom_styles/bg = SubResource( 3 )
+step = 1.0
+value = 100.0
+percent_visible = false
 
 [connection signal="area_entered" from="Despawner/Area2D" to="Despawner" method="_on_Area2D_area_entered"]
 [connection signal="timeout" from="Spawner/Timer" to="Spawner" method="_on_Timer_timeout"]
