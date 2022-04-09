@@ -4,28 +4,46 @@ extends Node2D
 export(PackedScene) var enemy_scene
 export(PackedScene) var villager_scene
 
+export(Array, PackedScene) var mob_scenes
+export(Array, float) var mob_weights
+
 func _input(event):
 	var just_pressed = event.is_pressed() and not event.is_echo()
 	if !just_pressed:
 		return
 	
-	if Input.is_key_pressed(KEY_1):
-		_spawn(enemy_scene.instance())
-	if Input.is_key_pressed(KEY_2):
-		_spawn(villager_scene.instance())
+	for i in range(1, 10):
+		if Input.is_key_pressed(KEY_0 + i):
+			_spawn(mob_scenes[i-1])
 
-func _spawn(mob : Node2D):
-	if not mob:
+func _spawn(mob_scene : PackedScene):
+	if not mob_scene:
 		return
 		
-	add_child(mob)
+	add_child(mob_scene.instance())
 
-func _on_Timer_timeout():
-	var r = randf()
+func _get_weighted_index():
+	assert(mob_scenes.size() == mob_weights.size())
+
+	var total_weights = 0.0
 	
-	if r < randf():
-		_spawn(enemy_scene.instance())
-	else:
-		_spawn(villager_scene.instance())
+	for w in mob_weights:
+		total_weights += w
 		
-	$Timer.wait_time = 1 + randf() * 2; # [1.0, 3.0]
+	var r = randf() * total_weights
+	
+	var idx = 0
+	var accum_weight = 0.0
+	for w in mob_weights:
+		accum_weight += w
+		if(accum_weight > r):
+			break
+		idx += 1
+
+	return idx
+	
+func _on_Timer_timeout():
+	var idx = _get_weighted_index()
+	_spawn(mob_scenes[idx])
+		
+	$Timer.wait_time = 1 + randf() * 2 # [1.0, 3.0]
