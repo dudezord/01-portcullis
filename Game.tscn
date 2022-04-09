@@ -54,7 +54,6 @@ color = Color( 0.0862745, 0.65098, 0.160784, 1 )
 position = Vector2( 508, 423 )
 
 [node name="Gate" parent="GateHolder" instance=ExtResource( 4 )]
-health = 65.0
 
 [node name="Despawner" type="Node2D" parent="."]
 position = Vector2( 753, 240 )

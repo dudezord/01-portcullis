@@ -2,6 +2,8 @@ extends Node2D
 
 export(float, 0, 100, 0.1) var health = 100.0
 
+signal damage
+
 enum Status {
 	Opened,
 	Opening,
@@ -12,6 +14,7 @@ enum Status {
 var status = Status.Closed
 
 func _ready():
+	connect("damage", self, "_on_damage_received")
 	pass
 
 func _process(delta):
@@ -47,3 +50,6 @@ func _on_AreaStop_area_exited(area):
 func _on_AreaKill_area_entered(area):
 	area.owner.emit_signal("die")
 	pass
+	
+func _on_damage_received(damage):
+	health -= damage
