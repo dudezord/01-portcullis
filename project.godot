@@ -24,6 +24,10 @@ config/name="GateKeeper"
 run/main_scene="res://Game.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+EventBus="*res://autoload/EventBus.gd"
+
 [display]
 
 window/size/width=640
