@@ -10,12 +10,24 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Node2D",
+"class": "EnemySoldier",
+"language": "GDScript",
+"path": "res://mobs/enemy_soldier/EnemySoldier.gd"
+}, {
+"base": "Node2D",
 "class": "Spawner",
 "language": "GDScript",
 "path": "res://mobs/Spawner.gd"
+}, {
+"base": "Node2D",
+"class": "Villager",
+"language": "GDScript",
+"path": "res://mobs/villager/Villager.gd"
 } ]
 _global_script_class_icons={
-"Spawner": ""
+"EnemySoldier": "",
+"Spawner": "",
+"Villager": ""
 }
 
 [application]
