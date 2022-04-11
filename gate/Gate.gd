@@ -14,7 +14,7 @@ enum Status {
 var status = Status.Closed
 
 func _ready():
-	connect("damage", self, "_on_damage_received")
+	EventBus.connect("gate_damaged", self, "_on_damage_received")
 	pass
 
 func _process(delta):
@@ -53,3 +53,6 @@ func _on_AreaKill_area_entered(area):
 	
 func _on_damage_received(damage):
 	health -= damage
+	
+	if(health <= 0):
+		EventBus.emit_signal("gate_destroyed")

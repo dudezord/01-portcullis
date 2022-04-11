@@ -11,6 +11,8 @@ enum Status {
 
 var _status = Status.Moving
 
+var _is_colliding_with_gate : bool
+
 signal stop
 signal move
 signal die
@@ -52,22 +54,24 @@ func _move(delta):
 	position.x += delta_x
 	
 func _attack(delta):
-	if not _colliding_object:
+	if not _is_colliding_with_gate:
 		return
 		
-	_colliding_object.emit_signal("damage", damage_per_second * delta)
+	var damage = damage_per_second * delta
+	if damage == 0:
+		return
+		
+	EventBus.emit_signal("gate_damaged", damage)
 
 func _on_Mob_die():
 	_status = Status.Dead
 	queue_free()
 
 func _on_Mob_stop():
+	_is_colliding_with_gate = true
 	_status = Status.Stopped
 
 func _on_Mob_move():
+	_is_colliding_with_gate = false
 	_status = Status.Moving
 	
-var _colliding_object : Node2D
-
-func _on_AreaStop_area_entered(area):
-	_colliding_object = area.owner as Node2D
