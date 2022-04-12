@@ -113,8 +113,6 @@ shape = SubResource( 1 )
 [node name="Spawner" type="Node2D" parent="."]
 position = Vector2( -40, 450 )
 script = ExtResource( 1 )
-enemy_scene = ExtResource( 2 )
-villager_scene = ExtResource( 3 )
 mob_scenes = [ ExtResource( 2 ), ExtResource( 3 ) ]
 mob_weights = [ 0.0, 1.0 ]
 

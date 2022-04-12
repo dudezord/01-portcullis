@@ -1,3 +1,4 @@
+#warning-ignore-all: UNUSED_SIGNAL
 extends Node2D
 
 export var speed = 200

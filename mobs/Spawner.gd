@@ -1,9 +1,6 @@
 class_name Spawner
 extends Node2D
 
-export(PackedScene) var enemy_scene
-export(PackedScene) var villager_scene
-
 export(Array, PackedScene) var mob_scenes
 export(Array, float) var mob_weights
 
@@ -13,6 +10,9 @@ func _input(event):
 		return
 	
 	for i in range(1, 10):
+		if i > mob_scenes.size():
+			break
+			
 		if Input.is_key_pressed(KEY_0 + i):
 			_spawn(mob_scenes[i-1])
 
