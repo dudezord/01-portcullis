@@ -16,6 +16,7 @@ var _is_colliding_with_gate : bool
 signal stop
 signal move
 signal die
+signal despawn
 
 export var debug = false
 export (float, 0, 20, 0.1) var damage_per_second = 0
@@ -24,6 +25,7 @@ func _ready():
 	connect("stop", self, "_on_Mob_stop")
 	connect("move", self, "_on_Mob_move")
 	connect("die", self, "_on_Mob_die")
+	connect("despawn", self, "_on_Mob_despawn")
 	pass
 
 func _input(event):
@@ -62,9 +64,11 @@ func _attack(delta):
 		return
 		
 	EventBus.emit_signal("gate_damaged", damage)
+	EventBus.emit_signal("mob_attacked", self, damage)
 
 func _on_Mob_die():
 	_status = Status.Dead
+	EventBus.emit_signal("mob_killed", self)
 	queue_free()
 
 func _on_Mob_stop():
@@ -75,3 +79,6 @@ func _on_Mob_move():
 	_is_colliding_with_gate = false
 	_status = Status.Moving
 	
+func _on_Mob_despawn():
+	EventBus.emit_signal("mob_despawned", self)
+	queue_free()
