@@ -24,7 +24,7 @@ func _process(delta):
 	$AreaKill/CollisionPolygon2D.disabled = !can_kill
 
 func _input(event):
-	if Input.is_key_pressed(KEY_SPACE):
+	if Input.is_action_just_pressed("ui_accept"):
 		if status == Status.Opened:
 			status = Status.Closing
 			$AnimationPlayer.play("close_gate")
