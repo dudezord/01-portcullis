@@ -59,6 +59,7 @@ func _add_morale(delta):
 	_max_spawn_timer = clamp(_max_spawn_timer - delta / 50.0, 0.1, 3)
 	
 	$Spawner.set_min_max_timer(_min_spawn_timer, _max_spawn_timer)
+	$GateHolder/Gate.set_gate_animation_timer(_max_spawn_timer * .8, _min_spawn_timer * .8)
 
 func _on_Gate_destroyed():
 	get_tree().paused = true

@@ -11,7 +11,17 @@ enum Status {
 
 var status = Status.Closed
 
+var _original_open_timer = 0.0
+var _open_timer = 0.0
+var _original_close_timer = 0.0
+var _close_timer = 0.0
+
 func _ready():
+	_original_open_timer = $AnimationPlayer.get_animation("open_gate").length
+	_original_close_timer = $AnimationPlayer.get_animation("close_gate").length
+	_open_timer = _original_open_timer
+	_close_timer = _original_close_timer
+	
 	EventBus.connect("gate_damaged", self, "_on_damage_received")
 	pass
 
@@ -25,17 +35,28 @@ func _input(event):
 	if Input.is_action_just_pressed("ui_accept"):
 		if status == Status.Opened:
 			status = Status.Closing
+			$AnimationPlayer.playback_speed = _original_close_timer / _close_timer
 			$AnimationPlayer.play("close_gate")
 			
 		elif status == Status.Closed:
 			status = Status.Opening
-			$AnimationPlayer.play("open_gate")
+			if _open_timer < _original_open_timer * 0.33:
+				$AnimationPlayer.playback_speed = _original_open_timer / _open_timer * 0.33
+				$AnimationPlayer.play("open_gate_fastest")
+			elif _open_timer < _original_open_timer * 0.66:
+				$AnimationPlayer.playback_speed = _original_open_timer / _open_timer * 0.66
+				$AnimationPlayer.play("open_gate_fast")
+			else:
+				$AnimationPlayer.playback_speed = _original_open_timer / _open_timer
+				$AnimationPlayer.play("open_gate")
 
 func _on_AnimationPlayer_animation_finished(anim_name):
-	if anim_name == "open_gate":
-		status = Status.Opened
-	elif anim_name == "close_gate":
-		status = Status.Closed
+	match anim_name:
+		"open_gate", "open_gate_fast", "open_gate_fastest":
+			status = Status.Opened
+		"close_gate":
+			status = Status.Closed
+			
 
 func _on_AreaStop_area_entered(area):
 	area.owner.emit_signal("stop")
@@ -48,6 +69,10 @@ func _on_AreaStop_area_exited(area):
 func _on_AreaKill_area_entered(area):
 	area.owner.emit_signal("die")
 	pass
+	
+func set_gate_animation_timer(open_timer, close_timer):
+	_open_timer = open_timer
+	_close_timer = close_timer
 	
 func _on_damage_received(damage):
 	health -= damage
