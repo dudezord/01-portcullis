@@ -4,6 +4,9 @@ extends Node2D
 export(Array, PackedScene) var mob_scenes
 export(Array, float) var mob_weights
 
+var _min_timer : float = 1.0;
+var _max_timer : float = 3.0;
+
 func _input(event):
 	var just_pressed = event.is_pressed() and not event.is_echo()
 	if !just_pressed:
@@ -42,8 +45,12 @@ func _get_weighted_index():
 
 	return idx
 	
+func set_min_max_timer(min_timer, max_timer):
+	_min_timer = min_timer
+	_max_timer = max_timer
+
 func _on_Timer_timeout():
 	var idx = _get_weighted_index()
 	_spawn(mob_scenes[idx])
 		
-	$Timer.wait_time = 1 + randf() * 2 # [1.0, 3.0]
+	$Timer.wait_time = _min_timer + randf() * (_max_timer - _min_timer)
