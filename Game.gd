@@ -25,7 +25,7 @@ func _ready():
 
 func _process(delta):
 	_delta = delta
-	$GateHolder/Gate/GateHealthBar.value = $GateHolder/Gate.health
+	$GateHolder/GateHealthBar.value = $GateHolder/Gate.health
 
 func _input(event):
 	if event.is_action_pressed("ui_page_up"):

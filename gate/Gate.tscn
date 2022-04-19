@@ -1,6 +1,7 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://gate/Gate.gd" type="Script" id=1]
+[ext_resource path="res://assets/gate_main.png" type="Texture" id=2]
 
 [sub_resource type="Animation" id=2]
 length = 0.001
@@ -89,25 +90,25 @@ anims/open_gate = SubResource( 1 )
 anims/open_gate_fast = SubResource( 5 )
 anims/open_gate_fastest = SubResource( 4 )
 
-[node name="Polygon2D" type="Polygon2D" parent="."]
-position = Vector2( 5.96046e-08, 7.62939e-06 )
-scale = Vector2( 1.04225, 1.07914 )
-offset = Vector2( -97.5811, -151.86 )
-polygon = PoolVector2Array( 64, 49, 64, 152, 135, 188, 135, 74 )
+[node name="Gate" type="Sprite" parent="."]
+position = Vector2( 2, -31 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 2 )
 
 [node name="AreaKill" type="Area2D" parent="."]
 collision_mask = 2
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AreaKill"]
-polygon = PoolVector2Array( -6, 15, 39, 39, 39, 16, -6, -5 )
+position = Vector2( 0, 3.449 )
+polygon = PoolVector2Array( -21, 18.551, 39, 39, 39, 12.551, -21, -4.449 )
 
 [node name="AreaStop" type="Area2D" parent="."]
 collision_layer = 4
 collision_mask = 16
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AreaStop"]
-position = Vector2( -22, -12 )
-polygon = PoolVector2Array( -13, 12, 15, 27, 15, -89, -13, -99 )
+position = Vector2( -22, -8 )
+polygon = PoolVector2Array( -3, 30, 12, 34, 12, -71, -3, -74 )
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="area_entered" from="AreaKill" to="." method="_on_AreaKill_area_entered"]
