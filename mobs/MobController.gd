@@ -2,7 +2,6 @@
 extends Node2D
 
 export var speed = 200
-export var score_death = 500
 
 enum Status {
 	Moving,
