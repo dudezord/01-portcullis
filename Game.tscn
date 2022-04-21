@@ -106,14 +106,13 @@ position = Vector2( 448, 355 )
 scale = Vector2( 1.5, 1.5 )
 
 [node name="GateHealthBar" type="ProgressBar" parent="GateHolder"]
-visible = false
-margin_left = -41.0
-margin_top = -143.0
-margin_right = 54.0
-margin_bottom = -133.0
+margin_left = -44.0
+margin_top = -141.0
+margin_right = 51.0
+margin_bottom = -131.0
 grow_horizontal = 2
 grow_vertical = 2
-rect_rotation = 14.1443
+rect_rotation = 17.5177
 custom_styles/fg = SubResource( 2 )
 custom_styles/bg = SubResource( 3 )
 step = 1.0
@@ -130,7 +129,7 @@ collision_layer = 8
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Despawner/Area2D"]
-position = Vector2( -1, -6 )
+position = Vector2( -116, 48 )
 shape = SubResource( 1 )
 
 [node name="Spawner" type="Node2D" parent="."]
@@ -144,7 +143,6 @@ wait_time = 3.0
 autostart = true
 
 [node name="MoraleBar" type="ProgressBar" parent="."]
-visible = false
 margin_left = 30.0
 margin_top = 20.0
 margin_right = 610.0
@@ -157,7 +155,6 @@ percent_visible = false
 script = ExtResource( 7 )
 
 [node name="Label" type="Label" parent="."]
-visible = false
 anchor_right = 1.0
 margin_left = 281.0
 margin_top = 40.0
@@ -170,8 +167,7 @@ valign = 1
 script = ExtResource( 8 )
 
 [node name="Timer" type="Timer" parent="Label"]
-wait_time = 60.0
-autostart = true
+wait_time = 91.0
 
 [node name="GateFg" type="Sprite" parent="."]
 position = Vector2( 448, 308 )

@@ -7,6 +7,9 @@ export(Array, float) var mob_weights
 var _min_timer : float = 1.0;
 var _max_timer : float = 3.0;
 
+var _min_speed : float = 200.0;
+var _max_speed : float = 200.0;
+
 func _input(event):
 	var just_pressed = event.is_pressed() and not event.is_echo()
 	if !just_pressed:
@@ -23,7 +26,9 @@ func _spawn(mob_scene : PackedScene):
 	if not mob_scene:
 		return
 		
-	add_child(mob_scene.instance())
+	var new_mob = mob_scene.instance()
+	new_mob.speed = _min_speed + randf() * (_max_speed - _min_speed)
+	add_child(new_mob)
 
 func _get_weighted_index():
 	assert(mob_scenes.size() == mob_weights.size())
@@ -48,6 +53,11 @@ func _get_weighted_index():
 func set_min_max_timer(min_timer, max_timer):
 	_min_timer = min_timer
 	_max_timer = max_timer
+	
+	
+func set_min_max_speed(min_speed, max_speed):
+	_min_speed = min_speed
+	_max_speed = max_speed
 
 func _on_Timer_timeout():
 	var idx = _get_weighted_index()

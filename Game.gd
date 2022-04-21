@@ -5,17 +5,27 @@ var _morale : float;
 var _min_spawn_timer = 1.0
 var _max_spawn_timer = 3.0
 
-export var score_enemy_killed = 5.0
-export var score_enemy_enter = -2.0
-export var score_enemy_attack = -2.0
+var _gate_open_timer = 3.0
+var _gate_close_timer = 1.0
 
-export var score_villager_killed = -2.0
-export var score_villager_enter = 5.0
+var _mob_speed_min = 200.0
+var _mob_speed_max = 200.0
+
+export var score_enemy_killed = 7.0
+export var score_enemy_enter = -8.0
+export var score_enemy_attack = 0.0
+
+export var score_villager_killed = -10.0
+export var score_villager_enter = 3.0
 export var score_villager_attack = 0.0
+
+export var game_duration = 91.0
 
 var _delta = 0.0
 
 func _ready():
+	$Label/Timer.start(game_duration)
+
 	$Spawner.set_min_max_timer(_min_spawn_timer, _max_spawn_timer)
 	
 	EventBus.connect("mob_killed", self, "_on_Mob_killed")
@@ -53,13 +63,27 @@ func _on_Mob_despawned(mob):
 
 func _add_morale(delta):
 	_morale += delta
+	_morale = clamp(_morale, 0, 100)
+
 	EventBus.emit_signal("morale_updated", _morale)
 	
-	_min_spawn_timer = clamp(_min_spawn_timer - delta / 50.0, 0.1, 1)
-	_max_spawn_timer = clamp(_max_spawn_timer - delta / 50.0, 0.1, 3)
-	
+	var _weight = _morale / 100.0
+
+	var ease_spawn = ease(_weight, 0.5)
+	_min_spawn_timer = lerp(1.0, 0.01, ease_spawn)
+	_max_spawn_timer = lerp(3.0, 1.0, ease_spawn)
 	$Spawner.set_min_max_timer(_min_spawn_timer, _max_spawn_timer)
-	$GateHolder/Gate.set_gate_animation_timer(_max_spawn_timer * .8, _min_spawn_timer * .8)
+	
+	var ease_speed = ease(_weight, 1)
+	_mob_speed_min = lerp(200, 150, ease_speed)
+	_mob_speed_max = lerp(200, 300, ease_speed)
+	$Spawner.set_min_max_speed(_mob_speed_min, _mob_speed_max)
+	
+	var elapsed_time = 1.0 - $Label/Timer.time_left / game_duration
+	var ease_gate = ease(_weight * 0.8 + elapsed_time * 0.2, 0.6)
+	_gate_open_timer = lerp(3.0, 0.2, ease_gate)
+	_gate_close_timer = lerp(1.0, 0.2, ease_gate)
+	$GateHolder/Gate.set_gate_animation_timer(_gate_open_timer, _gate_close_timer)
 
 func _on_Gate_destroyed():
 	get_tree().paused = true
