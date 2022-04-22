@@ -21,7 +21,11 @@ export var score_villager_attack = 0.0
 
 export var game_duration = 91.0
 
+export var max_shake_offset = Vector2(7, 7)
+export var shake_duration = 0.15
+
 var _delta = 0.0
+var _shake_remaining = 0.0
 
 func _ready():
 	$Label/Timer.start(game_duration)
@@ -37,6 +41,14 @@ func _ready():
 func _process(delta):
 	_delta = delta
 	$GateHolder/GateHealthBar.value = $GateHolder/Gate.health
+	
+	if(_shake_remaining > 0):
+		_shake_remaining -= delta
+		shake()
+	else:
+		$Camera2D.offset.x = 0
+		$Camera2D.offset.y = 0
+		
 
 func _input(event):
 	if event.is_action_pressed("ui_page_up"):
@@ -94,3 +106,8 @@ func _on_Timer_timeout():
 	
 func _on_Gate_closed():
 	$CPUParticles2D.emitting = true
+	_shake_remaining = shake_duration
+
+func shake():
+	$Camera2D.offset.x = max_shake_offset.x * rand_range(-1, 1)
+	$Camera2D.offset.y = max_shake_offset.y * rand_range(-1, 1)
