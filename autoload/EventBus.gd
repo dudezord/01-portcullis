@@ -10,3 +10,4 @@ signal morale_updated
 
 signal gate_damaged
 signal gate_destroyed
+signal gate_closed

@@ -41,6 +41,7 @@ damage_per_second = 5.0
 position = Vector2( -2, -68 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 7 )
+frame = 1
 playing = true
 
 [node name="AreaKill" type="Area2D" parent="."]

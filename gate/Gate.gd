@@ -55,6 +55,7 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 		"open_gate", "open_gate_fast", "open_gate_fastest":
 			status = Status.Opened
 		"close_gate":
+			EventBus.emit_signal("gate_closed")
 			status = Status.Closed
 			
 
@@ -63,7 +64,8 @@ func _on_AreaStop_area_entered(area):
 	pass
 
 func _on_AreaStop_area_exited(area):
-	area.owner.emit_signal("move")
+	if area.owner:
+		area.owner.emit_signal("move") 
 	pass
 
 func _on_AreaKill_area_entered(area):

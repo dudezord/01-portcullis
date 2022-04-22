@@ -32,6 +32,7 @@ func _ready():
 	EventBus.connect("mob_attacked", self, "_on_Mob_attacked")
 	EventBus.connect("mob_despawned", self, "_on_Mob_despawned")
 	EventBus.connect("gate_destroyed", self, "_on_Gate_destroyed")
+	EventBus.connect("gate_closed", self, "_on_Gate_closed")
 
 func _process(delta):
 	_delta = delta
@@ -90,3 +91,6 @@ func _on_Gate_destroyed():
 
 func _on_Timer_timeout():
 	get_tree().paused = true
+	
+func _on_Gate_closed():
+	$CPUParticles2D.emitting = true

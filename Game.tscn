@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://mobs/Spawner.gd" type="Script" id=1]
 [ext_resource path="res://mobs/enemy_soldier/EnemySoldier.tscn" type="PackedScene" id=2]
@@ -11,6 +11,8 @@
 [ext_resource path="res://assets/grass.png" type="Texture" id=9]
 [ext_resource path="res://assets/gate_fg.png" type="Texture" id=10]
 [ext_resource path="res://assets/gate_bg.png" type="Texture" id=11]
+[ext_resource path="res://assets/hole_fg.png" type="Texture" id=12]
+[ext_resource path="res://assets/hole_bg.png" type="Texture" id=13]
 
 [sub_resource type="StyleBoxFlat" id=2]
 corner_radius_top_left = 10
@@ -67,9 +69,20 @@ expand_margin_right = 4.0
 expand_margin_top = 4.0
 expand_margin_bottom = 4.0
 
+[sub_resource type="Curve" id=6]
+max_value = 4.0
+_data = [ Vector2( 0, 1.56364 ), 0.0, -1.56364, 0, 1, Vector2( 1, 0 ), -1.56364, 0.0, 1, 0 ]
+
 [node name="Node2D" type="Node2D"]
-position = Vector2( 1, 0 )
+position = Vector2( -74, -20 )
 script = ExtResource( 5 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 319, 249 )
+scale = Vector2( 1.29409, 0.986496 )
+current = true
+zoom = Vector2( 0.99, 0.99 )
+limit_left = -10000087
 
 [node name="Background" type="ColorRect" parent="."]
 margin_right = 640.0
@@ -94,6 +107,11 @@ scale = Vector2( 2, 2 )
 texture = ExtResource( 9 )
 offset = Vector2( 320, -16 )
 
+[node name="HoleBg" type="Sprite" parent="."]
+position = Vector2( 440.4, 371.4 )
+scale = Vector2( 3.2, 3.2 )
+texture = ExtResource( 13 )
+
 [node name="GateBg" type="Sprite" parent="."]
 position = Vector2( 451, 310 )
 scale = Vector2( 3, 3 )
@@ -106,18 +124,26 @@ position = Vector2( 448, 355 )
 scale = Vector2( 1.5, 1.5 )
 
 [node name="GateHealthBar" type="ProgressBar" parent="GateHolder"]
-margin_left = -44.0
-margin_top = -141.0
-margin_right = 51.0
-margin_bottom = -131.0
+margin_left = -37.0
+margin_top = -142.0
+margin_right = 58.0
+margin_bottom = -132.0
 grow_horizontal = 2
 grow_vertical = 2
-rect_rotation = 17.5177
+rect_rotation = 18.8309
 custom_styles/fg = SubResource( 2 )
 custom_styles/bg = SubResource( 3 )
 step = 1.0
 value = 100.0
 percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="HoleFg" type="Sprite" parent="."]
+position = Vector2( 440.4, 371.4 )
+scale = Vector2( 3.2, 3.2 )
+texture = ExtResource( 12 )
 
 [node name="Despawner" type="Node2D" parent="."]
 position = Vector2( 735, 185 )
@@ -173,6 +199,28 @@ wait_time = 91.0
 position = Vector2( 448, 308 )
 scale = Vector2( 3, 3 )
 texture = ExtResource( 10 )
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2( 448, 406 )
+rotation = 3.48019
+emitting = false
+amount = 200
+lifetime = 1.5
+one_shot = true
+explosiveness = 1.0
+emission_shape = 2
+emission_rect_extents = Vector2( 60, 1 )
+direction = Vector2( 0.304, 0.961 )
+spread = 30.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 40.0
+initial_velocity_random = 1.0
+scale_amount = 6.0
+scale_amount_random = 1.0
+scale_amount_curve = SubResource( 6 )
+color = Color( 0.380392, 0.333333, 0.305882, 1 )
+hue_variation = 0.05
+hue_variation_random = 1.0
 
 [connection signal="area_entered" from="Despawner/Area2D" to="Despawner" method="_on_Area2D_area_entered"]
 [connection signal="timeout" from="Spawner/Timer" to="Spawner" method="_on_Timer_timeout"]
