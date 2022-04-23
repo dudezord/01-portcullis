@@ -36,6 +36,7 @@ func _ready():
 	EventBus.connect("mob_attacked", self, "_on_Mob_attacked")
 	EventBus.connect("mob_despawned", self, "_on_Mob_despawned")
 	EventBus.connect("gate_closed", self, "_on_Gate_closed")
+	EventBus.connect("gate_destroyed", self, "_on_Gate_destroyed")
 
 func _process(delta):
 	_delta = delta
@@ -101,6 +102,11 @@ func _add_morale(delta):
 func _on_Gate_closed():
 	$CPUParticles2D.emitting = true
 	_shake_remaining = shake_duration
+	
+func _on_Gate_destroyed():
+	$GateHolder.visible = false
+	$AudioGateDestroyed.play()
+	pass
 
 func shake():
 	$Camera2D.offset.x = max_shake_offset.x * rand_range(-1, 1)

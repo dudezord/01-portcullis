@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://mobs/Spawner.gd" type="Script" id=1]
 [ext_resource path="res://mobs/enemy_soldier/EnemySoldier.tscn" type="PackedScene" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://assets/hole_fg.png" type="Texture" id=12]
 [ext_resource path="res://assets/hole_bg.png" type="Texture" id=13]
 [ext_resource path="res://Font.tres" type="DynamicFont" id=14]
+[ext_resource path="res://assets/gate_destroyed.wav" type="AudioStream" id=15]
 
 [sub_resource type="StyleBoxFlat" id=2]
 corner_radius_top_left = 10
@@ -225,6 +226,10 @@ scale_amount_curve = SubResource( 6 )
 color = Color( 0.380392, 0.333333, 0.305882, 1 )
 hue_variation = 0.05
 hue_variation_random = 1.0
+
+[node name="AudioGateDestroyed" type="AudioStreamPlayer" parent="."]
+pause_mode = 2
+stream = ExtResource( 15 )
 
 [connection signal="area_entered" from="Despawner/Area2D" to="Despawner" method="_on_Area2D_area_entered"]
 [connection signal="timeout" from="Spawner/Timer" to="Spawner" method="_on_Timer_timeout"]
