@@ -2,6 +2,7 @@
 
 [ext_resource path="res://gate/Gate.gd" type="Script" id=1]
 [ext_resource path="res://assets/gate_main.png" type="Texture" id=2]
+[ext_resource path="res://assets/gate_closed.wav" type="AudioStream" id=3]
 
 [sub_resource type="Animation" id=2]
 length = 0.001
@@ -153,6 +154,9 @@ collision_mask = 16
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AreaStop"]
 position = Vector2( -22, -8 )
 polygon = PoolVector2Array( -3, 30, 12, 34, 12, -71, -3, -74 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="area_entered" from="AreaKill" to="." method="_on_AreaKill_area_entered"]

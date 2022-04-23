@@ -56,6 +56,9 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 			status = Status.Opened
 		"close_gate":
 			EventBus.emit_signal("gate_closed")
+			$AudioStreamPlayer.volume_db = rand_range(-0.1, 0.1)
+			$AudioStreamPlayer.pitch_scale = rand_range(0.8, 1.2)
+			$AudioStreamPlayer.play(0)
 			status = Status.Closed
 			
 
