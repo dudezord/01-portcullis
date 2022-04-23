@@ -33,12 +33,13 @@ _global_script_class_icons={
 [application]
 
 config/name="GateKeeper"
-run/main_scene="res://Game.tscn"
+run/main_scene="res://Start.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
 EventBus="*res://autoload/EventBus.gd"
+GameBus="*res://autoload/GameBus.gd"
 
 [display]
 

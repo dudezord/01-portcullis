@@ -35,7 +35,6 @@ func _ready():
 	EventBus.connect("mob_killed", self, "_on_Mob_killed")
 	EventBus.connect("mob_attacked", self, "_on_Mob_attacked")
 	EventBus.connect("mob_despawned", self, "_on_Mob_despawned")
-	EventBus.connect("gate_destroyed", self, "_on_Gate_destroyed")
 	EventBus.connect("gate_closed", self, "_on_Gate_closed")
 
 func _process(delta):
@@ -77,6 +76,7 @@ func _on_Mob_despawned(mob):
 func _add_morale(delta):
 	_morale += delta
 	_morale = clamp(_morale, 0, 100)
+	GameBus.Morale = _morale
 
 	EventBus.emit_signal("morale_updated", _morale)
 	
@@ -98,12 +98,6 @@ func _add_morale(delta):
 	_gate_close_timer = lerp(1.0, 0.2, ease_gate)
 	$GateHolder/Gate.set_gate_animation_timer(_gate_open_timer, _gate_close_timer)
 
-func _on_Gate_destroyed():
-	get_tree().paused = true
-
-func _on_Timer_timeout():
-	get_tree().paused = true
-	
 func _on_Gate_closed():
 	$CPUParticles2D.emitting = true
 	_shake_remaining = shake_duration
