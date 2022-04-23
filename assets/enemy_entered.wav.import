@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/enemy_entered.wav-bd3bf1af88ced526fbbd41e5db13314e.sample"
+
+[deps]
+
+source_file="res://assets/enemy_entered.wav"
+dest_files=[ "res://.import/enemy_entered.wav-bd3bf1af88ced526fbbd41e5db13314e.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

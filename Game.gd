@@ -73,6 +73,8 @@ func _on_Mob_despawned(mob):
 		_add_morale(score_villager_enter)
 	elif(mob is EnemySoldier):
 		_add_morale(score_enemy_enter)
+		$AudioEnemyEntered.pitch_scale = rand_range(0.8, 1.2)
+		$AudioEnemyEntered.play(0)
 
 func _add_morale(delta):
 	_morale += delta
