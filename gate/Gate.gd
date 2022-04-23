@@ -79,5 +79,7 @@ func set_gate_animation_timer(open_timer, close_timer):
 func _on_damage_received(damage):
 	health -= damage
 	
+	$Gate.frame = (100 - health) / (100 / $Gate.frames.get_frame_count("default"))
+	
 	if(health <= 0):
 		EventBus.emit_signal("gate_destroyed")

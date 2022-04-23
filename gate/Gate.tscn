@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://gate/Gate.gd" type="Script" id=1]
 [ext_resource path="res://assets/gate_main.png" type="Texture" id=2]
@@ -80,6 +80,50 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 0, -150 ) ]
 }
 
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 2 )
+region = Rect2( 128, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 2 )
+region = Rect2( 256, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 2 )
+region = Rect2( 384, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 2 )
+region = Rect2( 512, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 2 )
+region = Rect2( 640, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 2 )
+region = Rect2( 768, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 2 )
+region = Rect2( 896, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 2 )
+region = Rect2( 1024, 0, 128, 128 )
+
+[sub_resource type="SpriteFrames" id=11]
+animations = [ {
+"frames": [ SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 1 )
 
@@ -90,10 +134,10 @@ anims/open_gate = SubResource( 1 )
 anims/open_gate_fast = SubResource( 5 )
 anims/open_gate_fastest = SubResource( 4 )
 
-[node name="Gate" type="Sprite" parent="."]
+[node name="Gate" type="AnimatedSprite" parent="."]
 position = Vector2( 2, -31 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 2 )
+frames = SubResource( 11 )
 
 [node name="AreaKill" type="Area2D" parent="."]
 collision_mask = 2
