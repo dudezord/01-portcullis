@@ -71,6 +71,8 @@ func _on_Mob_attacked(mob, damage):
 func _on_Mob_despawned(mob):
 	if(mob is Villager):
 		_add_morale(score_villager_enter)
+		$AudioVillagerEntered.pitch_scale = rand_range(0.8, 1.2)
+		$AudioVillagerEntered.play(0)
 	elif(mob is EnemySoldier):
 		_add_morale(score_enemy_enter)
 		$AudioEnemyEntered.pitch_scale = rand_range(0.8, 1.2)
